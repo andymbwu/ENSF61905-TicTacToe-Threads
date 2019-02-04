@@ -1,3 +1,5 @@
+package ticTacToe;
+
 /**
  * Definition of constant characters for the players, including X, O and space
  */

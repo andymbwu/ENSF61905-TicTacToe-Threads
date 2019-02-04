@@ -1,3 +1,5 @@
+package ticTacToe;
+
 import java.util.Scanner;
 /**
  * Player class that sets the opponents for the game, and contains methods

@@ -1,4 +1,4 @@
-
+package ticTacToe;
 
 /**
  * Class that creates and populates the tic tac toe board on which the game
