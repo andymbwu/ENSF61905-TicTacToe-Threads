@@ -1,16 +1,18 @@
-package TicTacToeClient;
 
-/**
- * Class that creates and populates the tic tac toe board on which the game
- * runs. Contains methods to check for win conditions for each player, 
- * add marks to the board, and to display the board after each player turn
- */
+
+/** This class consists of the board required to play a tic-tac-toe game.
+ * An object of this class contains the following information: a 2D array of characters
+ * to represent the board, and an integer to count the total number of marks on the board. 
+ * This class also provides a constructor to create a Board object and initialize all values
+ * to the ' ' constant character and instance methods to check if the 'X' or 'O' players are the winner,
+ * to check if the board is full, to display the board to the console, to add a mark to the board and to clear
+ * the board as explained in the given comments, below. */
 public class Board implements Constants {
 	private char theBoard[][];
 	private int markCount;
-	/**
-	 * Method to populate the board with empty spaces
-	 */
+
+	/** Default constructor that creates a new 2D array of characters of length 3x3 and sets the value
+	 * of all characters to ' '. */
 	public Board() {
 		markCount = 0;
 		theBoard = new char[3][];
@@ -20,53 +22,38 @@ public class Board implements Constants {
 				theBoard[i][j] = SPACE_CHAR;
 		}
 	}
-	public void clearBoard() {
-		markCount = 0;
-		for (int i = 0; i < 3; i++) {
-			theBoard[i] = new char[3];
-			for (int j = 0; j < 3; j++)
-				theBoard[i][j] = SPACE_CHAR;
-		}
-	}
-	/**
-	 * Method to return the mark at the specified row/column
-	 * @param row: represents the user selected row number
-	 * @param col: represents the user selected column number
-	 * @return: returns the position of the board where mark is found
-	 */
+
+	/** Getter method to retrieve the character in an element of the 2D array from an input row and an
+	 * input column. */
 	public char getMark(int row, int col) {
 		return theBoard[row][col];
 	}
-	/**
-	 * Method to check if board is fully populated with X/O values
-	 * @return: returns true if counter is 9 (9 moves), false otherwise
-	 */
+
+	/** A method that checks if the board is full. The board contains 9 spaces (3x3) so if the 
+	 * member variable markCount is equal to 9 then the board is full. */
 	public boolean isFull() {
 		return markCount == 9;
 	}
-	/**
-	 * Method to check player X win condition
-	 * @return: returns true if x player wins and false if they lose
-	 */
+
+	/** A method that checks if the 'X' player has won the game by calling the checkWinner() method. */
 	public boolean xWins() {
 		if (checkWinner(LETTER_X) == 1)
 			return true;
 		else
 			return false;
 	}
-	/** 
-	 * Method to check player O win condition
-	 * @return: returns true of o player wins and false if they lose
-	 */
+
+	/** A method that checks if the 'O' player has won the game by calling the checkWinner() method. */
 	public boolean oWins() {
 		if (checkWinner(LETTER_O) == 1)
 			return true;
 		else
 			return false;
 	}
-	/**
-	 * Method to print display of board to console after each player turn
-	 */
+	
+	/** The method used to display the game board. It calls displayColumnHeaders(), addHyphens(), and 
+	 * addSpaces() to display the column labels, and the rectangular shape of the board, and prints 
+	 * the row labels also. */
 	public void display() {
 		displayColumnHeaders();
 		addHyphens();
@@ -80,32 +67,28 @@ public class Board implements Constants {
 			addHyphens();
 		}
 	}
-	/**
-	 * Method to add X/O mark to board based on player input
-	 * @param row: represents row number to add mark
-	 * @param col: represents column number to add mark
-	 * @param mark: represents mark to add (O/X)
-	 */
+
+	/** This method adds a mark to the 2D character array. It has input parameters for the row and 
+	 * column to add the mark too, and an input parameter for the mark character to be added. */
 	public void addMark(int row, int col, char mark) {
 		
 		theBoard[row][col] = mark;
 		markCount++;
 	}
-	/**
-	 * Method to fully clear the tic tac toe board 
-	 */
+
+	/** This method loops through the 2D character array and sets each elements value to ' '. */
 	public void clear() {
 		for (int i = 0; i < 3; i++)
 			for (int j = 0; j < 3; j++)
 				theBoard[i][j] = SPACE_CHAR;
 		markCount = 0;
 	}
-	/**
-	 *  * Method to check for winners on the current instance of the board
-	 * (ie 3 in a row of the same symbol)
-	 * @param mark: indicates mark of winner to check conditions
-	 * @return: returns 1 if winner or 0 if loser
-	 */
+
+	/** This method is used to check the board for a winner. It checks for all possible winning combinations
+	 * using a character as an input parameter. Row by row it will check if all columns contain the same input 
+	 * character, then column by column if all rows contain the same character, then check if both diagonals
+	 * contain the same character. If any of these are true, a value of 1 is returned and used in the 
+	 * xWins() or oWins() method that called it to declare a winner. */
 	int checkWinner(char mark) {
 		int row, col;
 		int result = 0;
@@ -147,27 +130,24 @@ public class Board implements Constants {
 		}
 		return result;
 	}
-	/**
-	 * Method to print the game board column headers
-	 */
+
+	/** Method called by display() to print the columns of the board to the console. */
 	void displayColumnHeaders() {
 		System.out.print("          ");
 		for (int j = 0; j < 3; j++)
 			System.out.print("|col " + j);
 		System.out.println();
 	}
-	/** 
-	 * Method to help construct the structure of the game board (hyphens)
-	 */
+
+	/** Method called by display() to print the lines of the board to the console. */
 	void addHyphens() {
 		System.out.print("          ");
 		for (int j = 0; j < 3; j++)
 			System.out.print("+-----");
 		System.out.println("+");
 	}
-	/** 
-	 * Method to help construct the structure of the game board (spaces)
-	 */
+	
+	/** Method called by display() to print the spaces between the lines of the board to the console. */
 	void addSpaces() {
 		System.out.print("          ");
 		for (int j = 0; j < 3; j++)
