@@ -8,13 +8,17 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 
 public class Server {
 	Socket xSocket;
 	Socket oSocket;
 	ServerSocket serverSocket;
+
+	PrintWriter xSocketOut;
+	PrintWriter oSocketOut;
+	BufferedReader xSocketIn;
+	BufferedReader oSocketIn;
 	
 	/**
 	 * Thread Pool to Handle Communication.
@@ -22,6 +26,7 @@ public class Server {
 	private ExecutorService pool;
 
 	public Server() { // throws IOException {
+
 		try {
 			serverSocket = new ServerSocket(9898);
 			this.pool = Executors.newFixedThreadPool(5);
@@ -35,21 +40,27 @@ public class Server {
 
 	public void runServer() {
 		try {
+
 			while (true) {
 				xSocket = serverSocket.accept();
-				System.out.println("after accept x player");
+				System.out.println("Player X has been connected");
 				
 				oSocket = serverSocket.accept();
-				System.out.println("after accept o player");
+				System.out.println("Player O has been connected");
 
-				System.out.println("Game has started (from server class)");
+				xSocketIn = new BufferedReader((new InputStreamReader(xSocket.getInputStream())));
+				oSocketIn = new BufferedReader((new InputStreamReader(oSocket.getInputStream())));
+				xSocketOut = new PrintWriter(xSocket.getOutputStream(), true);
+				oSocketOut = new PrintWriter(oSocket.getOutputStream(), true);
+
+//				System.out.println("Game has started (from server class)");
 				
 //				in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
 //				out = new PrintWriter((aSocket.getOutputStream()), true);
 				
 				
 				//Game needs to have both sockets as input arguments to it's constructor
-				Game game = new Game(xSocket, oSocket);
+				Game game = new Game(xSocket,oSocket);
 				
 				pool.execute(game);
 			}

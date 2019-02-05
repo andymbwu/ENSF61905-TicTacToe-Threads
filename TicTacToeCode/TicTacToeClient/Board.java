@@ -1,5 +1,11 @@
 package TicTacToeClient;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
 /** This class consists of the board required to play a tic-tac-toe game.
  * An object of this class contains the following information: a 2D array of characters
  * to represent the board, and an integer to count the total number of marks on the board. 
@@ -11,9 +17,29 @@ public class Board implements Constants {
 	private char theBoard[][];
 	private int markCount;
 
+	private Socket xSocket;
+	private PrintWriter xSocketOut;
+	private BufferedReader xSocketIn;
+
+	private Socket oSocket;
+	private PrintWriter oSocketOut;
+	private BufferedReader oSocketIn;
+
 	/** Default constructor that creates a new 2D array of characters of length 3x3 and sets the value
 	 * of all characters to ' '. */
-	public Board() {
+	public Board(Socket xSocket, Socket oSocket) {
+		this.oSocket = oSocket;
+		this.xSocket = xSocket;
+
+		try {
+			this.xSocketIn = new BufferedReader((new InputStreamReader(xSocket.getInputStream())));
+			this.oSocketIn = new BufferedReader((new InputStreamReader(oSocket.getInputStream())));
+			this.xSocketOut = new PrintWriter(xSocket.getOutputStream(), true);
+			this.oSocketOut = new PrintWriter(oSocket.getOutputStream(), true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		markCount = 0;
 		theBoard = new char[3][];
 		for (int i = 0; i < 3; i++) {
@@ -50,7 +76,10 @@ public class Board implements Constants {
 		else
 			return false;
 	}
-	
+	public void showWinner(String winner) {
+		xSocketOut.println("The game is over! " + winner + " is the winner!");
+		oSocketOut.println("The game is over! " + winner + " is the winner!");
+	}
 	/** The method used to display the game board. It calls displayColumnHeaders(), addHyphens(), and 
 	 * addSpaces() to display the column labels, and the rectangular shape of the board, and prints 
 	 * the row labels also. */
@@ -59,10 +88,15 @@ public class Board implements Constants {
 		addHyphens();
 		for (int row = 0; row < 3; row++) {
 			addSpaces();
-			System.out.print("    row " + row + ' ');
-			for (int col = 0; col < 3; col++)
-				System.out.print("|  " + getMark(row, col) + "  ");
-			System.out.println("|");
+//			System.out.print("    row " + row + ' ');
+			xSocketOut.print("    row " + row + ' ');
+			oSocketOut.print("    row " + row + ' ');
+			for (int col = 0; col < 3; col++) {
+				xSocketOut.print("|  " + getMark(row, col) + "  ");
+				oSocketOut.print("|  " + getMark(row, col) + "  ");
+			}
+			xSocketOut.println("|");
+			oSocketOut.println("|");
 			addSpaces();
 			addHyphens();
 		}
@@ -133,25 +167,37 @@ public class Board implements Constants {
 
 	/** Method called by display() to print the columns of the board to the console. */
 	void displayColumnHeaders() {
-		System.out.print("          ");
-		for (int j = 0; j < 3; j++)
-			System.out.print("|col " + j);
-		System.out.println();
+		xSocketOut.print("          ");
+		oSocketOut.print("          ");
+		for (int j = 0; j < 3; j++) {
+			xSocketOut.print("|col " + j);
+			oSocketOut.print("|col " + j);
+		}
+		xSocketOut.println();
+		oSocketOut.println();
 	}
 
 	/** Method called by display() to print the lines of the board to the console. */
 	void addHyphens() {
-		System.out.print("          ");
-		for (int j = 0; j < 3; j++)
-			System.out.print("+-----");
-		System.out.println("+");
+		xSocketOut.print("          ");
+		oSocketOut.print("          ");
+		for (int j = 0; j < 3; j++) {
+			xSocketOut.print("+-----");
+			oSocketOut.print("+-----");
+		}
+		xSocketOut.println("+");
+		oSocketOut.println("+");
 	}
 	
 	/** Method called by display() to print the spaces between the lines of the board to the console. */
 	void addSpaces() {
-		System.out.print("          ");
-		for (int j = 0; j < 3; j++)
-			System.out.print("|     ");
-		System.out.println("|");
+		xSocketOut.print("          ");
+		oSocketOut.print("          ");
+		for (int j = 0; j < 3; j++) {
+			xSocketOut.print("|     ");
+			oSocketOut.print("|     ");
+		}
+		xSocketOut.println("|");
+		oSocketOut.println("|");
 	}
 }

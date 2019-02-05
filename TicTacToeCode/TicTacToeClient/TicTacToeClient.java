@@ -38,13 +38,35 @@ public class TicTacToeClient {
     public void communicate() {
         String userIn = "";
         String response = "";
-        while (!userIn.equals("QUIT")) {
+        String move = "";
+        System.out.println("Player, please enter your name");
+        try {
+            userIn = stdIn.readLine();
+            out.println(userIn);
+            response = in.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(response.contains("Welcome"))
+            System.out.println(response);//writing the user input to the socket
+        while(true) {
             try {
-                System.out.println("Player, please enter your name");
-                userIn = stdIn.readLine();
-                out.println(userIn);//writing the user input to the socket
                 response = in.readLine();//reading server's response from the socket
-                System.out.println(response);
+                if(response.contains("col 1")) {
+                    String board = response + "\n";
+                    for(int i = 0; i < 13; i++) {
+                        board += in.readLine() + "\n";
+                    }
+                    System.out.println(board);
+                }
+                if(response.contains("what")){
+                    System.out.println(response);
+                    move = stdIn.readLine();
+                    out.println(move);
+                }
+                if(response.contains("winner"))
+                    System.out.println(response);
+
             } catch (IOException e) {
                 System.out.println("Sending error: " + e.getMessage());
             }
