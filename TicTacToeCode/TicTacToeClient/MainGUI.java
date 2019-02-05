@@ -5,7 +5,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 /**
  * User interface for a human vs human tic tac toe game
@@ -35,28 +39,38 @@ public class MainGUI extends JFrame implements Constants{
 	private String nameXPlayer;
 	private String nameOPlayer;
 	private JButton btnRestartGame;
-	private Board board = new Board();
+
+	private BufferedReader in;
+	private PrintWriter out;
+//	private Board board = new Board();
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainGUI frame = new MainGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					MainGUI frame = new MainGUI();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//		}
 
 	/**
 	 * Create the frame.
 	 */
-	public MainGUI() {
+	public MainGUI(Socket aSocket) {
+		try {
+			in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
+			out = new PrintWriter((aSocket.getOutputStream()), true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1267, 854);
 		contentPane = new JPanel();
@@ -450,58 +464,58 @@ public class MainGUI extends JFrame implements Constants{
 		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 36));
 		btnStartGame.setBounds(601, 637, 333, 126);
 		contentPane.add(btnStartGame);
-			btnStartGame.addActionListener(new ActionListener()
-			{
-				/**
-				 * Assigns values to players and ref, and receives user inputs
-				 * for player names. Also assigns the predefined constants
-				 * in the Constant class to each character to set up the game initially
-				 * @param args: includes arguments like referee, players, and game state
-				 * @throws IOException checks null value
-				 */
-				public void actionPerformed(ActionEvent evt)
-				{
-					Referee theRef;
-					Player xPlayer, oPlayer;
-					Game theGame = new Game();
-					
-					nameXPlayer = enterXName.getText();
-					nameOPlayer = enterOName.getText();
-					if (enterXName.getText().equals("")|| enterOName.getText().equals("")) {
-						statusField.append("\nPlease enter a name for the players and try again");
-						return;
-					}
-					else if (nameXPlayer != null & nameOPlayer != null)
-					{
-						statusField.append("\n"+ nameXPlayer + " is Player X");
-						statusField.append("\n"+nameOPlayer + " is Player O");
-						
-						xPlayer = new Player(nameXPlayer, LETTER_X);
-						xPlayer.setBoard(theGame.getTheBoard());
-						
-						oPlayer = new Player(nameOPlayer, LETTER_O);
-						oPlayer.setBoard(theGame.getTheBoard());
-						
-						theRef = new Referee();
-						theRef.setBoard(theGame.getTheBoard());
-						theRef.setoPlayer(oPlayer);
-						theRef.setxPlayer(xPlayer);
-						
-						btnTopLeft.setVisible(true);
-						btnTopMid.setVisible(true);
-						btnTopRight.setVisible(true);
-						btnMidLeft.setVisible(true);
-						btnMidMid.setVisible(true);
-						btnMidRight.setVisible(true);
-						btnBotLeft.setVisible(true);
-						btnBotMid.setVisible(true);
-						btnBotRight.setVisible(true);
-						
-						selectX.setSelected(true);
-					}
-					
-				}
-			});
+//			btnStartGame.addActionListener(new ActionListener()
+//			{
+//				/**
+//				 * Assigns values to players and ref, and receives user inputs
+//				 * for player names. Also assigns the predefined constants
+//				 * in the Constant class to each character to set up the game initially
+//				 * @param args: includes arguments like referee, players, and game state
+//				 * @throws IOException checks null value
+//				 */
+//				public void actionPerformed(ActionEvent evt)
+//				{
+//					Referee theRef;
+//					Player xPlayer, oPlayer;
+//					Game theGame = new Game();
+//
+//					nameXPlayer = enterXName.getText();
+//					nameOPlayer = enterOName.getText();
+//					if (enterXName.getText().equals("")|| enterOName.getText().equals("")) {
+//						statusField.append("\nPlease enter a name for the players and try again");
+//						return;
+//					}
+//					else if (nameXPlayer != null & nameOPlayer != null)
+//					{
+//						statusField.append("\n"+ nameXPlayer + " is Player X");
+//						statusField.append("\n"+nameOPlayer + " is Player O");
+//
+//						xPlayer = new Player(nameXPlayer, LETTER_X);
+//						xPlayer.setBoard(theGame.getTheBoard());
+//
+//						oPlayer = new Player(nameOPlayer, LETTER_O);
+//						oPlayer.setBoard(theGame.getTheBoard());
+//
+//						theRef = new Referee();
+//						theRef.setBoard(theGame.getTheBoard());
+//						theRef.setoPlayer(oPlayer);
+//						theRef.setxPlayer(xPlayer);
+//
+//						btnTopLeft.setVisible(true);
+//						btnTopMid.setVisible(true);
+//						btnTopRight.setVisible(true);
+//						btnMidLeft.setVisible(true);
+//						btnMidMid.setVisible(true);
+//						btnMidRight.setVisible(true);
+//						btnBotLeft.setVisible(true);
+//						btnBotMid.setVisible(true);
+//						btnBotRight.setVisible(true);
+//
+//						selectX.setSelected(true);
+//					}
+//
+//				}
+//			});
 
 		btnQuitGame = new JButton("Quit Game");
 		btnQuitGame.setFont(new Font("Tahoma", Font.PLAIN, 36));
