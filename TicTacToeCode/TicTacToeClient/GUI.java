@@ -1,12 +1,10 @@
 package TicTacToeClient;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-import java.io.*;
+import java.io.IOException;
 
 /**
  * This class contains all the necessary objects and logic to run a GUI version
@@ -608,11 +606,11 @@ public class GUI implements Constants {
 	public void playGame() throws IOException, NullPointerException {
 		theGame = new Game();
 
-		xPlayer = new Player(xPlayerName, LETTER_X);
-		xPlayer.setBoard(theGame.getTheBoard());
-
-		oPlayer = new Player(oPlayerName, LETTER_O);
-		oPlayer.setBoard(theGame.getTheBoard());
+//		xPlayer = new Player(xPlayerName, LETTER_X);
+////		xPlayer.setBoard(theGame.getTheBoard());
+////
+////		oPlayer = new Player(oPlayerName, LETTER_O);
+////		oPlayer.setBoard(theGame.getTheBoard());
 
 		theRef = new Referee();
 		theRef.setBoard(theGame.getTheBoard());

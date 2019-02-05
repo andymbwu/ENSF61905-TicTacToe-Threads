@@ -1,10 +1,8 @@
 package TicTacToeClient;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.Socket;
-import java.util.Scanner;
 
 /** This class consists of the players that make the moves in the tic-tac-toe game.
  * An object of this class contains the following information: a name, a Board object, a mark 
@@ -16,24 +14,19 @@ public class Player {
 	private Board board;
 	private char mark;
 	private Player opponent;
-	
-	private Socket socket;
-	private PrintWriter currOut;
-	private PrintWriter oppOut;
-	private BufferedReader currIn;
+
+	private BufferedReader in;
+	private PrintWriter out;
 
 	
 	/** Constructor that creates a new Player from input arguments of name and character ('X' or 'O'). */
-	public Player(String name, char mark) {
+	public Player(String name, char mark, BufferedReader in, PrintWriter out) {
 		this.name = name;
 		this.mark = mark;
+		this.out = out;
+		this.in = in;
 	}
-	
-	public Player(Socket s) {
-		
-		currIn = new BufferedReader(new InputStreamReader(s.getInputStream()));
-		out = new PrintWriter((s.getOutputStream()), true);
-	}
+
 
 	/** Method that is responsible for playing the game. As long as neither player has won the game
 	 * or the board is not full it calls the Player method makeMove() then displays the board. 
@@ -43,16 +36,20 @@ public class Player {
 	 * and the whole method will repeat until one player wins or the board is full and the game is a tie. */
 	public void play() {
 		while(board.xWins() == false && board.oWins() == false && board.isFull() == false) {
+			System.out.println("play() is working");
 			makeMove();
 			board.display();
 			if (board.xWins()) {
 				System.out.println("THE GAME IS OVER: " + name + " is the winner!");
+				board.showWinner(name);
 				break;
 			} else if (board.oWins()) {
 				System.out.println("THE GAME IS OVER: " + name + " is the winner!");
+				board.showWinner(name);
 				break;
 			} else if (board.isFull()) {
 				System.out.println("THE GAME IS OVER: It is a tie!");
+				board.showWinner("Nobody");
 				break;
 			}
 			opponent.play();
@@ -63,11 +60,28 @@ public class Player {
 	/** This method asks the player to make a move by entering the row and column numbers, 
 	 * and puts an 'X' or 'O' mark on the board by calling addMark() in class Board. */
 	public void makeMove() {
-		System.out.println(name + ", what row should your next " + mark + " be placed in?");
-		Scanner scan = new Scanner(System.in);
-		int row = scan.nextInt();
-		System.out.println(name + ", what column should your next " + mark + " be placed in?");
-		int column = scan.nextInt();
+		int row = 0;
+		int column = 0;
+		out.println(name + ", what row should your next " + mark + " be placed in?");
+		System.out.println("test 5");
+		System.out.println("test 6");
+		try {
+			System.out.println("test 4");
+			row = Integer.parseInt(in.readLine());
+			out.println(row);
+			System.out.println("test 3");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("test 2");
+		out.println(name + ", what column should your next " + mark + " be placed in?");
+		try {
+			column = Integer.parseInt(in.readLine());
+			out.println(column);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("test 1");
 		board.addMark(row, column, mark);
 	}
 
