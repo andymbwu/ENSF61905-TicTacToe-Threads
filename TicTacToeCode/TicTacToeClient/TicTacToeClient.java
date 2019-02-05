@@ -92,6 +92,7 @@ public class TicTacToeClient {
      */
     public static void main(String[] args) throws IOException {
         TicTacToeClient aClient = new TicTacToeClient("localhost", 9898);
+
         aClient.communicate();
     }
 }
