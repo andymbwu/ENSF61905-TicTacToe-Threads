@@ -15,10 +15,10 @@ public class Server {
 	Socket oSocket;
 	ServerSocket serverSocket;
 
-	PrintWriter xSocketOut;
-	PrintWriter oSocketOut;
-	BufferedReader xSocketIn;
-	BufferedReader oSocketIn;
+//	PrintWriter xSocketOut;
+//	PrintWriter oSocketOut;
+//	BufferedReader xSocketIn;
+//	BufferedReader oSocketIn;
 	
 	/**
 	 * Thread Pool to Handle Communication.
@@ -48,10 +48,10 @@ public class Server {
 				oSocket = serverSocket.accept();
 				System.out.println("Player O has been connected");
 
-				xSocketIn = new BufferedReader((new InputStreamReader(xSocket.getInputStream())));
-				oSocketIn = new BufferedReader((new InputStreamReader(oSocket.getInputStream())));
-				xSocketOut = new PrintWriter(xSocket.getOutputStream(), true);
-				oSocketOut = new PrintWriter(oSocket.getOutputStream(), true);
+//				xSocketIn = new BufferedReader((new InputStreamReader(xSocket.getInputStream())));
+//				oSocketIn = new BufferedReader((new InputStreamReader(oSocket.getInputStream())));
+//				xSocketOut = new PrintWriter(xSocket.getOutputStream(), true);
+//				oSocketOut = new PrintWriter(oSocket.getOutputStream(), true);
 
 //				System.out.println("Game has started (from server class)");
 				
