@@ -24,7 +24,7 @@ public class Server {
 	public Server() { // throws IOException {
 		try {
 			serverSocket = new ServerSocket(9898);
-			pool = Executors.newFixedThreadPool(5);
+			this.pool = Executors.newFixedThreadPool(5);
 			
 		} catch (IOException e) {
 			System.out.println("Create new socket error");
@@ -40,9 +40,9 @@ public class Server {
 				System.out.println("after accept x player");
 				
 				oSocket = serverSocket.accept();
-				System.out.println("after accept x player");
-				
-				
+				System.out.println("after accept o player");
+
+				System.out.println("Game has started (from server class)");
 				
 //				in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
 //				out = new PrintWriter((aSocket.getOutputStream()), true);

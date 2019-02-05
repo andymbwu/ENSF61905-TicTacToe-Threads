@@ -1,6 +1,7 @@
 package TicTacToeClient;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -31,8 +32,13 @@ public class Player {
 	
 	public Player(Socket s) {
 		
-		currIn = new BufferedReader(new InputStreamReader(s.getInputStream()));
-		out = new PrintWriter((s.getOutputStream()), true);
+
+		try {
+			currOut = new PrintWriter((s.getOutputStream()), true);
+			currIn = new BufferedReader(new InputStreamReader(s.getInputStream()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/** Method that is responsible for playing the game. As long as neither player has won the game

@@ -15,7 +15,12 @@ public class Game implements Constants, Runnable {
 	private Referee theRef;
 	
 	private Socket xSocket;
+	private PrintWriter xOut;
+	private BufferedReader xIn;
+
 	private Socket oSocket;
+	private PrintWriter oOut;
+	private BufferedReader oIn;
 	
 	
 	/** Default constructor for class Game that creates a new Board and assigns it to the 
@@ -24,7 +29,15 @@ public class Game implements Constants, Runnable {
     	
         this.xSocket = x;
         this.oSocket = o;
-        run();
+		try {
+			xIn = new BufferedReader((new InputStreamReader(xSocket.getInputStream())));
+			oIn = new BufferedReader((new InputStreamReader(oSocket.getInputStream())));
+			xOut = new PrintWriter(xSocket.getOutputStream());
+			oOut = new PrintWriter(oSocket.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Game constructor initialized");
 	}
     
     public Game() { 
@@ -41,27 +54,51 @@ public class Game implements Constants, Runnable {
     
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		Referee theRef;
-		Player xPlayer, oPlayer;
-		Game theGame = new Game();
-		
+		System.out.println("Game run() method entered");
+//		Referee theRef;
+//		Player xPlayer, oPlayer;
+//		Game theGame = new Game();
+		String xLine = null;
+		String oLine = null;
 
-		xPlayer = new Player(name, LETTER_O);
-		oPlayer = new Player(name, LETTER_O);
-		
-		
-		xPlayer.setBoard(theGame.getTheBoard());
-		oPlayer.setBoard(theGame.getTheBoard());
-		
-		
-		theRef = new Referee();
-		theRef.setBoard(theGame.getTheBoard());
-		theRef.setoPlayer(oPlayer);
-		theRef.setxPlayer(xPlayer);
-        
-        theGame.appointReferee(theRef);
-		
+		while(true) {
+			try {
+				xLine = xIn.readLine();
+				xLine = xLine.toUpperCase();
+				xOut.println(xLine);
+				System.out.println(xLine);
+
+				oLine = oIn.readLine();
+				oLine = oLine.toUpperCase();
+				oOut.println(oLine);
+				System.out.println(oLine);
+
+				//			System.out.println(xIn.readLine());
+				//			System.out.println(oIn.readLine());
+
+				System.out.println("Game has started (from game class)");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+//		System.out.println("exited try catch block");
+
+
+//		xPlayer = new Player(name, LETTER_O);
+//		oPlayer = new Player(name, LETTER_O);
+//
+//
+//		xPlayer.setBoard(theGame.getTheBoard());
+//		oPlayer.setBoard(theGame.getTheBoard());
+//
+//
+//		theRef = new Referee();
+//		theRef.setBoard(theGame.getTheBoard());
+//		theRef.setoPlayer(oPlayer);
+//		theRef.setxPlayer(xPlayer);
+//
+//        theGame.appointReferee(theRef);
+//
 	}
     
     /** Main function of the class Game. It is responsible for creating two new Player objects for X and O, 
@@ -90,16 +127,16 @@ public class Game implements Constants, Runnable {
 //			System.out.print("Please try again: ");
 //			name = stdin.readLine();
 //		}
-		
+
 //		oPlayer = new Player(name, LETTER_O);
 //		oPlayer.setBoard(theGame.getTheBoard());
-		
-		theRef = new Referee();
-		theRef.setBoard(theGame.getTheBoard());
-		theRef.setoPlayer(oPlayer);
-		theRef.setxPlayer(xPlayer);
-        
-        theGame.appointReferee(theRef);
+//
+//		theRef = new Referee();
+//		theRef.setBoard(theGame.getTheBoard());
+//		theRef.setoPlayer(oPlayer);
+//		theRef.setxPlayer(xPlayer);
+//
+//        theGame.appointReferee(theRef);
 	}
 
 	public Board getTheBoard() {

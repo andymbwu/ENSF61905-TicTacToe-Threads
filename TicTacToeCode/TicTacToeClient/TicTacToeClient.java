@@ -10,10 +10,10 @@ import java.net.Socket;
  * Client class that receives a user input and reads it into a socket which writes to a server
  */
 public class TicTacToeClient {
-    private PrintWriter socketOut;
+    private PrintWriter out;
     private Socket aSocket;
     private BufferedReader stdIn;
-    private BufferedReader socketIn;
+    private BufferedReader in;
 
     /**
      * Constructor for initiating the server with a port number
@@ -24,8 +24,8 @@ public class TicTacToeClient {
         try {
             aSocket = new Socket(serverName, portNumber);
             stdIn = new BufferedReader(new InputStreamReader(System.in));
-            socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-            socketOut = new PrintWriter((aSocket.getOutputStream()), true);
+            in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
+            out = new PrintWriter((aSocket.getOutputStream()), true);
         } catch (IOException e) {
             System.err.println(e.getStackTrace());
         }
@@ -36,14 +36,14 @@ public class TicTacToeClient {
      * and returns a response from the server through the socket
      */
     public void communicate() {
-        String line = "hello";
+        String userIn = "";
         String response = "";
-        while (!line.equals("QUIT")) {
+        while (!userIn.equals("QUIT")) {
             try {
-                System.out.println("Please enter a word (DATE/TIME) ");
-                line = stdIn.readLine();
-                socketOut.println(line);//writing the user input to the socket
-                response = socketIn.readLine();//reading server's response from the socket
+                System.out.println("Player, please enter your name");
+                userIn = stdIn.readLine();
+                out.println(userIn);//writing the user input to the socket
+                response = in.readLine();//reading server's response from the socket
                 System.out.println(response);
             } catch (IOException e) {
                 System.out.println("Sending error: " + e.getMessage());
@@ -56,8 +56,8 @@ public class TicTacToeClient {
         }
         try {
             stdIn.close();
-            socketIn.close();
-            socketOut.close();
+            in.close();
+            out.close();
         } catch (IOException e) {
             System.out.println("closing error: " + e.getMessage());
         }
@@ -69,7 +69,7 @@ public class TicTacToeClient {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        TicTacToeClient aClient = new TicTacToeClient("localhost", 9090);
+        TicTacToeClient aClient = new TicTacToeClient("localhost", 9898);
         aClient.communicate();
     }
 }
