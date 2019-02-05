@@ -1,42 +1,36 @@
-package TicTacToeClient;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
-/**
- * Game class that catches null exceptions during the declaration of
- * player names at the start of the game and appoints the referee class
- * to run the game
- */
+/** This class consists of the game requirements to play a tic-tac-toe game.
+ * An object of this class contains the following information: a Board object 
+ * and a Referee object. This class also provides a constructor to create a Board object, 
+ * and an instance method to appoint the referee as explained in the given  
+ * comments, below. This class implements the interface Constants to access
+ * constant characters 'X' and 'O' and ' '. */
 public class Game implements Constants {
 
 	private Board theBoard;
 	private Referee theRef;
-	/**
-	 * Constructor that initializes an instance of the game board
-	 */
+	
+	
+	/** Default constructor for class Game that creates a new Board and assigns it to the 
+	 * member object theBoard in the class Game. */
     public Game( ) {
         setTheBoard(new Board());
 	}
-    /**
-     * Method to appoint referee class, and run the game through
-     * that class
-     * @param r: represents referee object
-     * @throws IOException checks null value
-     */
+    
+    /** Method that takes a referee as an input argument, assigns it to the member object theRef  
+	 * in class Game, and calls the member method runTheGame() of class Referee. Contains an exception
+	 * handler that will avoid crashing the program if an I/O exception occurs. */
     public void appointReferee(Referee r) throws IOException {
         theRef = r;
     	theRef.runTheGame();
     }
-
-	/**
-	 * Assigns values to players and ref, and receives user inputs
-	 * for player names. Also assigns the predefined constants
-	 * in the Constant class to each character to set up the game initially
-	 * @param args: includes arguments like referee, players, and game state
-	 * @throws IOException checks null value
-	 */
+    
+    /** Main function of the class Game. It is responsible for creating two new Player objects for X and O, 
+     * receiving user input to assign names to the Player objects, setting the board and setting the referee.
+     * It then calls a member method of class Game to run the game. Contains an exception handler that will 
+     * avoid crashing the program if an I/O exception occurs.*/
 	public static void main(String[] args) throws IOException {
 		Referee theRef;
 		Player xPlayer, oPlayer;
@@ -52,29 +46,32 @@ public class Game implements Constants {
 
 		xPlayer = new Player(name, LETTER_X);
 		xPlayer.setBoard(theGame.getTheBoard());
-
+		
 		System.out.print("\nPlease enter the name of the \'O\' player: ");
 		name = stdin.readLine();
 		while (name == null) {
 			System.out.print("Please try again: ");
 			name = stdin.readLine();
 		}
-
+		
 		oPlayer = new Player(name, LETTER_O);
 		oPlayer.setBoard(theGame.getTheBoard());
-
+		
 		theRef = new Referee();
 		theRef.setBoard(theGame.getTheBoard());
 		theRef.setoPlayer(oPlayer);
 		theRef.setxPlayer(xPlayer);
-
+        
         theGame.appointReferee(theRef);
 	}
+
 	public Board getTheBoard() {
 		return theBoard;
 	}
+
 	public void setTheBoard(Board theBoard) {
 		this.theBoard = theBoard;
 	}
+	
 
 }

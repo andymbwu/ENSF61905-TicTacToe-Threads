@@ -1,80 +1,66 @@
-package TicTacToeClient;
-
 import java.util.Scanner;
 
-/**
- * Player class that sets the opponents for the game, and contains methods
- * for receiving user inputs for each turn of the game, helps start
- * and end the game.
- */
+/** This class consists of the players that make the moves in the tic-tac-toe game.
+ * An object of this class contains the following information: a name, a Board object, a mark 
+ * ('X' or 'O'), and a Player object. This class also provides a constructor to create a Player object, 
+ * instance methods for getting and setting Players, setting the  opponent and board, and
+ * playing the game as explained in the given comments, below. */
 public class Player {
 	private String name;
+	private Board board;
 	private char mark;
 	private Player opponent;
-	private Board board;
-	/**
-	 * Player constructor that assigns the name and associated (O/X)
-	 * mark for a player
-	 * @param name: name of player
-	 * @param mark: mark (O/X) of player
-	 */
+
+	
+	/** Constructor that creates a new Player from input arguments of name and character ('X' or 'O'). */
 	public Player(String name, char mark) {
 		this.name = name;
 		this.mark = mark;
-
 	}
-	/**
-	 * Method that keeps the game running as long as the win or game
-	 * over conditions aren't met after each turn. When these conditions are
-	 * met, an output message will be printed
-	 */
+
+	/** Method that is responsible for playing the game. As long as neither player has won the game
+	 * or the board is not full it calls the Player method makeMove() then displays the board. 
+	 * It checks if the X or the O player have won the game or if the board is full. 
+	 * If no one has won or the board is not full it passes the move to the
+	 * opponent and allows them to make a move. It then displays the board and checks the board again, 
+	 * and the whole method will repeat until one player wins or the board is full and the game is a tie. */
 	public void play() {
-		if(board.xWins() == false && board.oWins() == false && board.isFull() == false){
+		while(board.xWins() == false && board.oWins() == false && board.isFull() == false) {
 			makeMove();
 			board.display();
-		}
-		else if(board.xWins()) {
-			System.out.println(opponent.name + " is the winner!");
-			System.exit(0);
-		}
-		else if(board.oWins()) {
-			System.out.println(opponent.name + " is the winner!");
-			System.exit(0);
-		}
-		else if(board.isFull()) {
-			System.out.println("The board is full. This game is a draw!");
-			System.exit(0);
+			if (board.xWins()) {
+				System.out.println("THE GAME IS OVER: " + name + " is the winner!");
+				break;
+			} else if (board.oWins()) {
+				System.out.println("THE GAME IS OVER: " + name + " is the winner!");
+				break;
+			} else if (board.isFull()) {
+				System.out.println("THE GAME IS OVER: It is a tie!");
+				break;
+			}
+			opponent.play();
 		}
 		
-		opponent.play();
 	}
-	/**
-	 * Method that receives user inputs for each turn from each player
-	 */
+
+	/** This method asks the player to make a move by entering the row and column numbers, 
+	 * and puts an 'X' or 'O' mark on the board by calling addMark() in class Board. */
 	public void makeMove() {
-		
-		
-		
-		Scanner reader = new Scanner(System.in);
 		System.out.println(name + ", what row should your next " + mark + " be placed in?");
-		int row = reader.nextInt();
+		Scanner scan = new Scanner(System.in);
+		int row = scan.nextInt();
 		System.out.println(name + ", what column should your next " + mark + " be placed in?");
-		int column = reader.nextInt();
+		int column = scan.nextInt();
 		board.addMark(row, column, mark);
 	}
-	/**
-	 * setter method for setting the opposing player
-	 * @param opponent: represents opposing player
-	 */
-	public void setOpponent(Player opponent) {
-		this.opponent = opponent;
+
+	/** Setter method to set the opponent of the current player. */
+	public void setOpponent(Player p) {
+		opponent = p;
 	}
-	/**
-	 * setter method for setting the initial board
-	 * @param theBoard: parameter representing the board set up
-	 */
+
+	/** Setter method to set the board for the game. */
 	public void setBoard(Board theBoard) {
 		this.board = theBoard;
 	}
-
 }
