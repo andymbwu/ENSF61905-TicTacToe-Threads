@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-package TicTacToeClient;
->>>>>>> branch 'master' of https://github.com/andymbwu/ENSF61905_TicTacToe_Threads.git
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;

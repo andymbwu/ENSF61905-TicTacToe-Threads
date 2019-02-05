@@ -1,8 +1,5 @@
 
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/andymbwu/ENSF61905_TicTacToe_Threads.git
 /** This class consists of the board required to play a tic-tac-toe game.
  * An object of this class contains the following information: a 2D array of characters
  * to represent the board, and an integer to count the total number of marks on the board. 

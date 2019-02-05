@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-package TicTacToeClient;
-
->>>>>>> branch 'master' of https://github.com/andymbwu/ENSF61905_TicTacToe_Threads.git
 import java.util.Scanner;
 
 /** This class consists of the players that make the moves in the tic-tac-toe game.

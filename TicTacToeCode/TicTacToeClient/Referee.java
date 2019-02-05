@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-package TicTacToeClient;
->>>>>>> branch 'master' of https://github.com/andymbwu/ENSF61905_TicTacToe_Threads.git
 
 /** This class consists of the referee that sets the opponent for each Player and starts the game by passing
  * the first move to the 'X'Player. An object of this class contains the following information: a Player 
