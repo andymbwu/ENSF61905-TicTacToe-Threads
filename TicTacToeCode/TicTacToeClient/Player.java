@@ -12,6 +12,8 @@ import java.io.PrintWriter;
 public class Player {
 	private String name;
 	private Board board;
+	private int row;
+	private int column;
 	private char mark;
 	private Player opponent;
 
@@ -59,24 +61,9 @@ public class Player {
 
 	/** This method asks the player to make a move by entering the row and column numbers, 
 	 * and puts an 'X' or 'O' mark on the board by calling addMark() in class Board. */
-	public void makeMove() {
-		int row = 0;
-		int column = 0;
-		out.println(name + ", what row should your next " + mark + " be placed in?");
-		try {
-			row = Integer.parseInt(in.readLine());
-			out.println(row);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		out.println(name + ", what column should your next " + mark + " be placed in?");
-		try {
-			column = Integer.parseInt(in.readLine());
-			out.println(column);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void makeMove(int row, int column, char mark) {
 		board.addMark(row, column, mark);
+
 	}
 
 	/** Setter method to set the opponent of the current player. */

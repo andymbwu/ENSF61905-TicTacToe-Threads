@@ -10,10 +10,11 @@ import java.net.Socket;
  * Client class that receives a user input and reads it into a socket which writes to a server
  */
 public class TicTacToeClient {
+    private BufferedReader in;
     private PrintWriter out;
     private Socket aSocket;
     private BufferedReader stdIn;
-    private BufferedReader in;
+    private MainGUI myGUI;
 
     /**
      * Constructor for initiating the server with a port number
@@ -21,6 +22,7 @@ public class TicTacToeClient {
      * @param portNumber: Server port number
      */
     public TicTacToeClient(String serverName, int portNumber) {
+        this.myGUI = new MainGUI(aSocket);
         try {
             aSocket = new Socket(serverName, portNumber);
             stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -36,6 +38,8 @@ public class TicTacToeClient {
      * and returns a response from the server through the socket
      */
     public void communicate() {
+
+
         String userIn = "";
         String response = "";
         String move = "";
@@ -92,6 +96,12 @@ public class TicTacToeClient {
      */
     public static void main(String[] args) throws IOException {
         TicTacToeClient aClient = new TicTacToeClient("localhost", 9898);
+
+        try {
+            aClient.myGUI.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         aClient.communicate();
     }
