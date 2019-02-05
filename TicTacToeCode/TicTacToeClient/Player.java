@@ -1,3 +1,5 @@
+package TicTacToeClient;
+
 import java.util.Scanner;
 
 /** This class consists of the players that make the moves in the tic-tac-toe game.
