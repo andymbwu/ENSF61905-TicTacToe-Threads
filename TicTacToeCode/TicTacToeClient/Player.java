@@ -1,5 +1,9 @@
 package TicTacToeClient;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.Scanner;
 
 /** This class consists of the players that make the moves in the tic-tac-toe game.
@@ -12,12 +16,23 @@ public class Player {
 	private Board board;
 	private char mark;
 	private Player opponent;
+	
+	private Socket socket;
+	private PrintWriter currOut;
+	private PrintWriter oppOut;
+	private BufferedReader currIn;
 
 	
 	/** Constructor that creates a new Player from input arguments of name and character ('X' or 'O'). */
 	public Player(String name, char mark) {
 		this.name = name;
 		this.mark = mark;
+	}
+	
+	public Player(Socket s) {
+		
+		currIn = new BufferedReader(new InputStreamReader(s.getInputStream()));
+		out = new PrintWriter((s.getOutputStream()), true);
 	}
 
 	/** Method that is responsible for playing the game. As long as neither player has won the game

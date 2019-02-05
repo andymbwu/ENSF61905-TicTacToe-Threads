@@ -15,12 +15,7 @@ public class Game implements Constants, Runnable {
 	private Referee theRef;
 	
 	private Socket xSocket;
-	private BufferedReader xIn;
-	private PrintWriter xOut;
-	
 	private Socket oSocket;
-	private BufferedReader oIn;
-	private PrintWriter oOut;
 	
 	
 	/** Default constructor for class Game that creates a new Board and assigns it to the 
@@ -47,20 +42,25 @@ public class Game implements Constants, Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+		Referee theRef;
+		Player xPlayer, oPlayer;
 		Game theGame = new Game();
 		
-		xIn = new BufferedReader(new InputStreamReader(xSocket.getInputStream()));
-		xOut = new PrintWriter((xSocket.getOutputStream()), true);
-		
-		oIn = new BufferedReader(new InputStreamReader(oSocket.getInputStream()));
-		oOut = new PrintWriter((oSocket.getOutputStream()), true);
-		
-				
-		xPlayerName = 
+
 		xPlayer = new Player(name, LETTER_O);
 		oPlayer = new Player(name, LETTER_O);
 		
+		
+		xPlayer.setBoard(theGame.getTheBoard());
+		oPlayer.setBoard(theGame.getTheBoard());
+		
+		
+		theRef = new Referee();
+		theRef.setBoard(theGame.getTheBoard());
+		theRef.setoPlayer(oPlayer);
+		theRef.setxPlayer(xPlayer);
+        
+        theGame.appointReferee(theRef);
 		
 	}
     
@@ -81,18 +81,18 @@ public class Game implements Constants, Runnable {
 //			name = stdin.readLine();
 //		}
 
-		xPlayer = new Player(name, LETTER_X);
-		xPlayer.setBoard(theGame.getTheBoard());
+//		xPlayer = new Player(name, LETTER_X);
+//		xPlayer.setBoard(theGame.getTheBoard());
 		
-		System.out.print("\nPlease enter the name of the \'O\' player: ");
-		name = stdin.readLine();
-		while (name == null) {
-			System.out.print("Please try again: ");
-			name = stdin.readLine();
-		}
+//		System.out.print("\nPlease enter the name of the \'O\' player: ");
+//		name = stdin.readLine();
+//		while (name == null) {
+//			System.out.print("Please try again: ");
+//			name = stdin.readLine();
+//		}
 		
-		oPlayer = new Player(name, LETTER_O);
-		oPlayer.setBoard(theGame.getTheBoard());
+//		oPlayer = new Player(name, LETTER_O);
+//		oPlayer.setBoard(theGame.getTheBoard());
 		
 		theRef = new Referee();
 		theRef.setBoard(theGame.getTheBoard());

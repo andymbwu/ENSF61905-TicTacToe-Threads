@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Server {
-	PrintWriter out;
 	Socket xSocket;
 	Socket oSocket;
 	ServerSocket serverSocket;
@@ -60,9 +59,8 @@ public class Server {
 			// Stop accepting new games and finish any active ones, then shutdown the threadpool.
 			pool.shutdown();
 			try {
-				in.close();
-				out.close();
-				aSocket.close();
+				xSocket.close();
+				oSocket.close();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -72,8 +70,8 @@ public class Server {
 	}
 
 	public static void main(String[] args) throws IOException {
-		Server myserver = new Server();
-		myserver.runServer();
+		Server myServer = new Server();
+		myServer.runServer();
 	}
 
 }
