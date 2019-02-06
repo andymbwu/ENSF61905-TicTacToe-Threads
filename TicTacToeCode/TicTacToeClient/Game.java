@@ -104,10 +104,10 @@ public class Game implements Constants, Runnable {
      * It then calls a member method of class Game to run the game. Contains an exception handler that will
      * avoid crashing the program if an I/O exception occurs.
      */
-    public static void main(String[] args) throws IOException {
-        Referee theRef;
-        Player xPlayer, oPlayer;
-        BufferedReader stdin;
+//    public static void main(String[] args) throws IOException {
+//        Referee theRef;
+//        Player xPlayer, oPlayer;
+//        BufferedReader stdin;
 //		Game theGame = new Game();
 //		stdin = new BufferedReader(new InputStreamReader(System.in));
 //		System.out.print("\nPlease enter the name of the \'X\' player: ");

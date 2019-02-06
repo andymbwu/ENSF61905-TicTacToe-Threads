@@ -36,11 +36,34 @@ public class Player {
 	 * If no one has won or the board is not full it passes the move to the
 	 * opponent and allows them to make a move. It then displays the board and checks the board again, 
 	 * and the whole method will repeat until one player wins or the board is full and the game is a tie. */
-	public void play() {
+//	public void play() {
+//		while(board.xWins() == false && board.oWins() == false && board.isFull() == false) {
+//			if (board.xWins()) {
+//				System.out.println("THE GAME IS OVER: " + name + " is the winner!");
+//				board.showWinner(name);
+//				break;
+//			} else if (board.oWins()) {
+//				System.out.println("THE GAME IS OVER: " + name + " is the winner!");
+//				board.showWinner(name);
+//				break;
+//			} else if (board.isFull()) {
+//				System.out.println("THE GAME IS OVER: It is a tie!");
+//				board.showWinner("Nobody");
+//				break;
+//			}
+//			opponent.play();
+//		}
+//
+//	}
+
+	/** This method asks the player to make a move by entering the row and column numbers, 
+	 * and puts an 'X' or 'O' mark on the board by calling addMark() in class Board. */
+	public void makeMove(int row, int column, char mark) {
+
+		board.addMark(row, column, mark);
+		board.display();
+
 		while(board.xWins() == false && board.oWins() == false && board.isFull() == false) {
-			System.out.println("play() is working");
-			makeMove();
-			board.display();
 			if (board.xWins()) {
 				System.out.println("THE GAME IS OVER: " + name + " is the winner!");
 				board.showWinner(name);
@@ -54,15 +77,8 @@ public class Player {
 				board.showWinner("Nobody");
 				break;
 			}
-			opponent.play();
-		}
-		
-	}
+			//Switch radio button to opposite player on both GUIs
 
-	/** This method asks the player to make a move by entering the row and column numbers, 
-	 * and puts an 'X' or 'O' mark on the board by calling addMark() in class Board. */
-	public void makeMove(int row, int column, char mark) {
-		board.addMark(row, column, mark);
 
 	}
 

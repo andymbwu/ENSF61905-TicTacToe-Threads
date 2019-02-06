@@ -38,38 +38,79 @@ public class TicTacToeClient {
      * and returns a response from the server through the socket
      */
     public void communicate() {
-
+        try {
+            myGUI.setVisible(true);
+            myGUI.setSelectX();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         String userIn = "";
         String response = "";
         String move = "";
         System.out.println("Player, please enter your name");
         try {
-            userIn = stdIn.readLine();
-            out.println(userIn);
+//            userIn = stdIn.readLine();
+//            out.println(userIn);
             response = in.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(response.contains("Welcome"))
-            System.out.println(response);//writing the user input to the socket
+//        if(response.contains("Welcome"))
+//            System.out.println(response);//writing the user input to the socket
         while(true) {
+            int num_case = 0;
+            String mark;
             try {
-                response = in.readLine();//reading server's response from the socket
-                if(response.contains("col 1")) {
-                    String board = response + "\n";
-                    for(int i = 0; i < 13; i++) {
-                        board += in.readLine() + "\n";
-                    }
-                    System.out.println(board);
-                }
-                if(response.contains("what")){
-                    System.out.println(response);
-                    move = stdIn.readLine();
-                    out.println(move);
-                }
-                if(response.contains("winner"))
-                    System.out.println(response);
+                num_case = Integer.parseInt(in.readLine().split(" ")[0]);
+                mark = in.readLine().split(" ")[1];
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            switch (num_case) {
+                case 1:
+                    myGUI.butnTopLeft.setText(mark);
+
+                    break;
+                case 2:
+                    monthString = "February";
+                    break;
+                case 3:
+                    monthString = "March";
+                    break;
+                case 4:
+                    monthString = "April";
+                    break;
+                case 5:
+                    monthString = "May";
+                    break;
+                case 6:
+                    monthString = "June";
+                    break;
+                case 7:
+                    //
+                case 8:
+                    //
+                case 9:
+                    //
+
+
+//            try {
+//                response = in.readLine();//reading server's response from the socket
+//                if(response.contains("col 1")) {
+//                    String board = response + "\n";
+//                    for(int i = 0; i < 13; i++) {
+//                        board += in.readLine() + "\n";
+//                    }
+//                    System.out.println(board);
+//                }
+//                if(response.contains("what")){
+//                    System.out.println(response);
+//                    move = stdIn.readLine();
+//                    out.println(move);
+//                }
+//                if(response.contains("winner"))
+//                    System.out.println(response);
 
             } catch (IOException e) {
                 System.out.println("Sending error: " + e.getMessage());
@@ -96,12 +137,6 @@ public class TicTacToeClient {
      */
     public static void main(String[] args) throws IOException {
         TicTacToeClient aClient = new TicTacToeClient("localhost", 9898);
-
-        try {
-            aClient.myGUI.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         aClient.communicate();
     }

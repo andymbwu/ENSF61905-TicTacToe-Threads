@@ -119,7 +119,7 @@ public class MainGUI extends JFrame implements Constants{
 		btnTopLeft = new JButton("");
 		btnTopLeft.setFont(new Font("Tahoma", Font.PLAIN, 99));
 		btnTopLeft.setBounds(29, 98, 150, 150);
-		btnTopLeft.setVisible(false);
+		btnTopLeft.setVisible(true);
 		contentPane.add(btnTopLeft);
 			btnTopLeft.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -128,13 +128,15 @@ public class MainGUI extends JFrame implements Constants{
 					}
 					else if(selectX.isSelected()==true){
 						btnTopLeft.setText("X");
-						board.addMark(0, 0, LETTER_X);
+						out.println("1 "+LETTER_X);
+//						board.addMark(0, 0, LETTER_X);
 						selectX.setSelected(false);
 						selectO.setSelected(true);
 					}
 					else if(selectO.isSelected()==true){
 						btnTopLeft.setText("O");
-						board.addMark(0, 0, LETTER_O);
+						out.println("1 " + LETTER_O);
+//						board.addMark(0, 0, LETTER_O);
 						selectX.setSelected(true);
 						selectO.setSelected(false);
 					}
@@ -158,7 +160,7 @@ public class MainGUI extends JFrame implements Constants{
 		btnTopMid = new JButton("");
 		btnTopMid.setFont(new Font("Tahoma", Font.PLAIN, 99));
 		btnTopMid.setBounds(205, 98, 150, 150);
-		btnTopMid.setVisible(false);
+		btnTopMid.setVisible(true);
 		contentPane.add(btnTopMid);
 			btnTopMid.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -197,7 +199,7 @@ public class MainGUI extends JFrame implements Constants{
 		btnTopRight = new JButton("");
 		btnTopRight.setFont(new Font("Tahoma", Font.PLAIN, 99));
 		btnTopRight.setBounds(384, 98, 150, 150);
-		btnTopRight.setVisible(false);
+		btnTopRight.setVisible(true);
 		contentPane.add(btnTopRight);
 			btnTopRight.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -235,7 +237,7 @@ public class MainGUI extends JFrame implements Constants{
 		btnMidLeft = new JButton("");
 		btnMidLeft.setFont(new Font("Tahoma", Font.PLAIN, 99));
 		btnMidLeft.setBounds(29, 270, 150, 150);
-		btnMidLeft.setVisible(false);
+		btnMidLeft.setVisible(true);
 		contentPane.add(btnMidLeft);
 			btnMidLeft.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -273,7 +275,7 @@ public class MainGUI extends JFrame implements Constants{
 		btnMidMid = new JButton("");
 		btnMidMid.setFont(new Font("Tahoma", Font.PLAIN, 99));
 		btnMidMid.setBounds(205, 270, 150, 150);
-		btnMidMid.setVisible(false);
+		btnMidMid.setVisible(true);
 		contentPane.add(btnMidMid);
 			btnMidMid.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -311,7 +313,7 @@ public class MainGUI extends JFrame implements Constants{
 		btnMidRight = new JButton("");
 		btnMidRight.setFont(new Font("Tahoma", Font.PLAIN, 99));
 		btnMidRight.setBounds(384, 270, 150, 150);
-		btnMidRight.setVisible(false);
+		btnMidRight.setVisible(true);
 		contentPane.add(btnMidRight);
 			btnMidRight.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -349,7 +351,7 @@ public class MainGUI extends JFrame implements Constants{
 		btnBotLeft = new JButton("");
 		btnBotLeft.setFont(new Font("Tahoma", Font.PLAIN, 99));
 		btnBotLeft.setBounds(29, 443, 150, 150);
-		btnBotLeft.setVisible(false);
+		btnBotLeft.setVisible(true);
 		contentPane.add(btnBotLeft);
 			btnBotLeft.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -387,7 +389,7 @@ public class MainGUI extends JFrame implements Constants{
 		btnBotMid = new JButton("");
 		btnBotMid.setFont(new Font("Tahoma", Font.PLAIN, 99));
 		btnBotMid.setBounds(205, 443, 150, 150);
-		btnBotMid.setVisible(false);
+		btnBotMid.setVisible(true);
 		contentPane.add(btnBotMid);
 			btnBotMid.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -425,7 +427,7 @@ public class MainGUI extends JFrame implements Constants{
 		btnBotRight = new JButton("");
 		btnBotRight.setFont(new Font("Tahoma", Font.PLAIN, 99));
 		btnBotRight.setBounds(384, 443, 150, 150);
-		btnBotRight.setVisible(false);
+		btnBotRight.setVisible(true);
 		contentPane.add(btnBotRight);
 			btnBotRight.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -460,10 +462,10 @@ public class MainGUI extends JFrame implements Constants{
 				}
 			});
 		
-		btnStartGame = new JButton("Start game!");
-		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 36));
-		btnStartGame.setBounds(601, 637, 333, 126);
-		contentPane.add(btnStartGame);
+//		btnStartGame = new JButton("Start game!");
+//		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 36));
+//		btnStartGame.setBounds(601, 637, 333, 126);
+//		contentPane.add(btnStartGame);
 //			btnStartGame.addActionListener(new ActionListener()
 //			{
 //				/**
@@ -501,17 +503,7 @@ public class MainGUI extends JFrame implements Constants{
 //						theRef.setoPlayer(oPlayer);
 //						theRef.setxPlayer(xPlayer);
 //
-//						btnTopLeft.setVisible(true);
-//						btnTopMid.setVisible(true);
-//						btnTopRight.setVisible(true);
-//						btnMidLeft.setVisible(true);
-//						btnMidMid.setVisible(true);
-//						btnMidRight.setVisible(true);
-//						btnBotLeft.setVisible(true);
-//						btnBotMid.setVisible(true);
-//						btnBotRight.setVisible(true);
-//
-//						selectX.setSelected(true);
+
 //					}
 //
 //				}
@@ -552,7 +544,9 @@ public class MainGUI extends JFrame implements Constants{
 		btnBotMid.setEnabled(false);
 		btnBotRight.setEnabled(false);
 	}
-	
+	void setSelectX() {
+		selectX.setSelected(true);
+	}
 	/**
 	 * Clears game board and internal console board array
 	 * Enables all buttons
