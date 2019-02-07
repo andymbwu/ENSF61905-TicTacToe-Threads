@@ -15,10 +15,10 @@ public class Server {
 	Socket oSocket;
 	ServerSocket serverSocket;
 
-//	PrintWriter xSocketOut;
-//	PrintWriter oSocketOut;
-//	BufferedReader xSocketIn;
-//	BufferedReader oSocketIn;
+	PrintWriter xSocketOut;
+	PrintWriter oSocketOut;
+	BufferedReader xSocketIn;
+	BufferedReader oSocketIn;
 	
 	/**
 	 * Thread Pool to Handle Communication.
@@ -35,7 +35,7 @@ public class Server {
 			System.out.println("Create new socket error");
 			System.out.println(e.getMessage());
 		}
-		System.out.println("Server is running");
+		System.out.println("TicTacToe.Server is running");
 	}
 
 	public void runServer() {
@@ -43,23 +43,17 @@ public class Server {
 
 			while (true) {
 				xSocket = serverSocket.accept();
-				System.out.println("Player X has been connected");
+				System.out.println("TicTacToe.Player X has been connected");
 				
 				oSocket = serverSocket.accept();
-				System.out.println("Player O has been connected");
+				System.out.println("TicTacToe.Player O has been connected");
 
-//				xSocketIn = new BufferedReader((new InputStreamReader(xSocket.getInputStream())));
-//				oSocketIn = new BufferedReader((new InputStreamReader(oSocket.getInputStream())));
-//				xSocketOut = new PrintWriter(xSocket.getOutputStream(), true);
-//				oSocketOut = new PrintWriter(oSocket.getOutputStream(), true);
-
-//				System.out.println("Game has started (from server class)");
+				xSocketIn = new BufferedReader((new InputStreamReader(xSocket.getInputStream())));
+				oSocketIn = new BufferedReader((new InputStreamReader(oSocket.getInputStream())));
+				xSocketOut = new PrintWriter(xSocket.getOutputStream(), true);
+				oSocketOut = new PrintWriter(oSocket.getOutputStream(), true);
 				
-//				in = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-//				out = new PrintWriter((aSocket.getOutputStream()), true);
-				
-				
-				//Game needs to have both sockets as input arguments to it's constructor
+				//TicTacToe.Game needs to have both sockets as input arguments to it's constructor
 				Game game = new Game(xSocket,oSocket);
 				
 				pool.execute(game);

@@ -9,7 +9,7 @@ import java.net.Socket;
 /** This class consists of the board required to play a tic-tac-toe game.
  * An object of this class contains the following information: a 2D array of characters
  * to represent the board, and an integer to count the total number of marks on the board. 
- * This class also provides a constructor to create a Board object and initialize all values
+ * This class also provides a constructor to create a TicTacToe.Board object and initialize all values
  * to the ' ' constant character and instance methods to check if the 'X' or 'O' players are the winner,
  * to check if the board is full, to display the board to the console, to add a mark to the board and to clear
  * the board as explained in the given comments, below. */
@@ -80,6 +80,15 @@ public class Board implements Constants {
 		xSocketOut.println("The game is over! " + winner + " is the winner!");
 		oSocketOut.println("The game is over! " + winner + " is the winner!");
 	}
+	public void showToAllPlayers(String text) {
+		xSocketOut.println("ANNOUNCE"+ text);
+		oSocketOut.println("ANNOUNCE"+ text);
+	}
+	public void updateMarks(char letter,int num){
+		System.out.println("UPDATEMARK"+" "+letter+" "+num);
+		xSocketOut.println("UPDATEMARK"+" "+letter+" "+num);
+		oSocketOut.println("UPDATEMARK"+" "+letter+" "+num);
+	}
 	/** The method used to display the game board. It calls displayColumnHeaders(), addHyphens(), and 
 	 * addSpaces() to display the column labels, and the rectangular shape of the board, and prints 
 	 * the row labels also. */
@@ -116,6 +125,8 @@ public class Board implements Constants {
 			for (int j = 0; j < 3; j++)
 				theBoard[i][j] = SPACE_CHAR;
 		markCount = 0;
+		xSocketOut.println("RESET");
+		oSocketOut.println("RESET");
 	}
 
 	/** This method is used to check the board for a winner. It checks for all possible winning combinations
