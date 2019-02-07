@@ -8,16 +8,18 @@ import java.net.Socket;
 
 /**
  * This class consists of the game requirements to play a tic-tac-toe game.
- * An object of this class contains the following information: a Board object
- * and a Referee object. This class also provides a constructor to create a Board object,
+ * An object of this class contains the following information: a TicTacToe.Board object
+ * and a TicTacToe.Referee object. This class also provides a constructor to create a TicTacToe.Board object,
  * and an instance method to appoint the referee as explained in the given
- * comments, below. This class implements the interface Constants to access
+ * comments, below. This class implements the interface TicTacToe.Constants to access
  * constant characters 'X' and 'O' and ' '.
  */
 public class Game implements Constants, Runnable {
 
     private Board theBoard;
     private Referee theRef;
+    private Player oPlayer;
+    private Player xPlayer;
 
     private Socket xSocket;
     private PrintWriter xSocketOut;
@@ -29,8 +31,8 @@ public class Game implements Constants, Runnable {
 
 
     /**
-     * Default constructor for class Game that creates a new Board and assigns it to the
-     * member object theBoard in the class Game.
+     * Default constructor for class TicTacToe.Game that creates a new TicTacToe.Board and assigns it to the
+     * member object theBoard in the class TicTacToe.Game.
      */
     public Game(Socket xSocket, Socket oSocket) {
         this.xSocket = xSocket;
@@ -46,14 +48,14 @@ public class Game implements Constants, Runnable {
         }
 
         setTheBoard(new Board(xSocket,oSocket));
-//        System.out.println("Game constructor initialized");
+//        System.out.println("TicTacToe.Game constructor initialized");
     }
 
     public Game() { }
 
     /**
      * Method that takes a referee as an input argument, assigns it to the member object theRef
-     * in class Game, and calls the member method runTheGame() of class Referee. Contains an exception
+     * in class TicTacToe.Game, and calls the member method runTheGame() of class TicTacToe.Referee. Contains an exception
      * handler that will avoid crashing the program if an I/O exception occurs.
      */
     public void appointReferee(Referee r) throws IOException {
@@ -63,52 +65,169 @@ public class Game implements Constants, Runnable {
 
     @Override
     public void run() {
-		Referee theRef;
-        String xLine = null;
-        String oLine = null;
 
+//		Referee theRef;
+        String xInput = "";
+        String oInput = "";
         try {
-            xLine = xSocketIn.readLine();
-            xSocketOut.println("Welcome, " + xLine);
+            while (true) {
+                xInput = xSocketIn.readLine();
+                if (xInput.startsWith("PLAYERNAME")) {
+                    xInput = xInput.replace("PLAYERNAME", "");
+                    xPlayer = new Player(xInput, LETTER_X, xSocketIn, xSocketOut);
+                    xPlayer.setOpponent(oPlayer);
+                    xPlayer.setBoard(this.getTheBoard());
+                    theBoard.showToAllPlayers("ANNOUNCE" + xPlayer.getName() + " has entered the game");
+                    System.out.println(xPlayer.getName() + " has entered the game");
+                } else if (xInput.startsWith("PLAYERMOVE")) {
+                    int num_square = Integer.parseInt(xInput.replace("PLAYERMOVE", ""));
+                    System.out.println("playmove xinput" + num_square);
+                    switch (num_square) {
+                        case 1:
+                            theBoard.addMark(0, 0, LETTER_X);
+                            theBoard.updateMarks(LETTER_X, num_square);
+                            System.out.println("case 1 for X Player is called");
+                            break;
+                        case 2:
+                            theBoard.addMark(0, 1, LETTER_X);
+                            theBoard.updateMarks(LETTER_X, num_square);
+                            System.out.println("case 2 for X Player is called");
+                            break;
+                        case 3:
+                            theBoard.addMark(0, 2, LETTER_X);
+                            theBoard.updateMarks(LETTER_X, num_square);
+                            System.out.println("case 3 for X Player is called");
+                            break;
+                        case 4:
+                            theBoard.addMark(1, 0, LETTER_X);
+                            theBoard.updateMarks(LETTER_X, num_square);
+                            System.out.println("case 4 for X Player is called");
+                            break;
+                        case 5:
+                            theBoard.addMark(1, 1, LETTER_X);
+                            theBoard.updateMarks(LETTER_X, num_square);
+                            System.out.println("case 5 for X Player is called");
+                            break;
+                        case 6:
+                            theBoard.addMark(1, 2, LETTER_X);
+                            theBoard.updateMarks(LETTER_X, num_square);
+                            System.out.println("case 6 for X Player is called");
+                            break;
+                        case 7:
+                            theBoard.addMark(2, 0, LETTER_X);
+                            theBoard.updateMarks(LETTER_X, num_square);
+                            System.out.println("case 7 for X Player is called");
+                            break;
+                        case 8:
+                            theBoard.addMark(2, 1, LETTER_X);
+                            theBoard.updateMarks(LETTER_X, num_square);
+                            System.out.println("case 8 for X Player is called");
+                            break;
+                        case 9:
+                            theBoard.addMark(2, 2, LETTER_X);
+                            theBoard.updateMarks(LETTER_X, num_square);
+                            System.out.println("case 9 for X Player is called");
+                            break;
+                    }
+                }
 
-            oLine = oSocketIn.readLine();
-            oSocketOut.println("Welcome, " + oLine);
+                    oInput = oSocketIn.readLine();
+                    if (oInput.startsWith("PLAYERNAME")) {
+                        oInput = oInput.replace("PLAYERNAME", "");
+                        oPlayer = new Player(oInput, LETTER_O, xSocketIn, oSocketOut);
+                        oPlayer.setOpponent(xPlayer);
+                        oPlayer.setBoard(this.getTheBoard());
+                        theBoard.showToAllPlayers("ANNOUNCE" + oPlayer.getName() + " has entered the game");
+                        System.out.println(oPlayer.getName() + " has entered the game");
+                    } else if (oInput.startsWith("PLAYERMOVE")) {
+                        int num_square = Integer.parseInt(oInput.replace("PLAYERMOVE", ""));
+                        System.out.println("playmove oinput" + num_square);
+                        switch (num_square) {
+                            case 1:
+                                theBoard.addMark(0, 0, LETTER_O);
+                                theBoard.updateMarks(LETTER_O, num_square);
+                                System.out.println("case 1 for O Player is called");
+                                break;
+                            case 2:
+                                theBoard.addMark(0, 1, LETTER_O);
+                                theBoard.updateMarks(LETTER_O, num_square);
+                                System.out.println("case 2 for O Player is called");
+                                break;
+                            case 3:
+                                theBoard.addMark(0, 2, LETTER_O);
+                                theBoard.updateMarks(LETTER_O, num_square);
+                                System.out.println("case 3 for O Player is called");
+                                break;
+                            case 4:
+                                theBoard.addMark(1, 0, LETTER_O);
+                                theBoard.updateMarks(LETTER_O, num_square);
+                                System.out.println("case 4 for O Player is called");
+                                break;
+                            case 5:
+                                theBoard.addMark(1, 1, LETTER_O);
+                                theBoard.updateMarks(LETTER_O, num_square);
+                                System.out.println("case 5 for O Player is called");
+                                break;
+                            case 6:
+                                theBoard.addMark(1, 2, LETTER_O);
+                                theBoard.updateMarks(LETTER_O, num_square);
+                                System.out.println("case 6 for O Player is called");
+                                break;
+                            case 7:
+                                theBoard.addMark(2, 0, LETTER_O);
+                                theBoard.updateMarks(LETTER_O, num_square);
+                                System.out.println("case 7 for O Player is called");
+                                break;
+                            case 8:
+                                theBoard.addMark(2, 1, LETTER_O);
+                                theBoard.updateMarks(LETTER_O, num_square);
+                                System.out.println("case 8 for O Player is called");
+                                break;
+                            case 9:
+                                theBoard.addMark(2, 2, LETTER_O);
+                                theBoard.updateMarks(LETTER_O, num_square);
+                                System.out.println("case 9 for O Player is called");
+                                break;
+                        }
+                    }
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+            }
 
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
-		Player xPlayer = new Player(xLine, LETTER_X, xSocketIn, xSocketOut);
-		Player oPlayer = new Player(oLine, LETTER_O, oSocketIn, oSocketOut);
+
+//		Player xPlayer = new Player(xLine, LETTER_X, xSocketIn, xSocketOut);
+//		Player oPlayer = new Player(oLine, LETTER_O, oSocketIn, oSocketOut);
 
 
-		xPlayer.setBoard(this.getTheBoard());
-		oPlayer.setBoard(this.getTheBoard());
+//		xPlayer.setBoard(this.getTheBoard());
+//		oPlayer.setBoard(this.getTheBoard());
 
-		theRef = new Referee();
-		theRef.setBoard(this.getTheBoard());
-		theRef.setoPlayer(oPlayer);
-		theRef.setxPlayer(xPlayer);
+//		theRef = new Referee();
+//		theRef.setBoard(this.getTheBoard());
+//		theRef.setoPlayer(oPlayer);
+//		theRef.setxPlayer(xPlayer);
 
-        try {
-            this.appointReferee(theRef);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            this.appointReferee(theRef);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-    }
 
     /**
-     * Main function of the class Game. It is responsible for creating two new Player objects for X and O,
-     * receiving user input to assign names to the Player objects, setting the board and setting the referee.
-     * It then calls a member method of class Game to run the game. Contains an exception handler that will
+     * Main function of the class TicTacToe.Game. It is responsible for creating two new TicTacToe.Player objects for X and O,
+     * receiving user input to assign names to the TicTacToe.Player objects, setting the board and setting the referee.
+     * It then calls a member method of class TicTacToe.Game to run the game. Contains an exception handler that will
      * avoid crashing the program if an I/O exception occurs.
      */
     public static void main(String[] args) throws IOException {
         Referee theRef;
         Player xPlayer, oPlayer;
         BufferedReader stdin;
-//		Game theGame = new Game();
+//		TicTacToe.Game theGame = new TicTacToe.Game();
 //		stdin = new BufferedReader(new InputStreamReader(System.in));
 //		System.out.print("\nPlease enter the name of the \'X\' player: ");
 //		String name= stdin.readLine();
@@ -117,7 +236,7 @@ public class Game implements Constants, Runnable {
 //			name = stdin.readLine();
 //		}
 
-//		xPlayer = new Player(name, LETTER_X);
+//		xPlayer = new TicTacToe.Player(name, LETTER_X);
 //		xPlayer.setBoard(theGame.getTheBoard());
 
 //		System.out.print("\nPlease enter the name of the \'O\' player: ");
@@ -127,10 +246,10 @@ public class Game implements Constants, Runnable {
 //			name = stdin.readLine();
 //		}
 
-//		oPlayer = new Player(name, LETTER_O);
+//		oPlayer = new TicTacToe.Player(name, LETTER_O);
 //		oPlayer.setBoard(theGame.getTheBoard());
 //
-//		theRef = new Referee();
+//		theRef = new TicTacToe.Referee();
 //		theRef.setBoard(theGame.getTheBoard());
 //		theRef.setoPlayer(oPlayer);
 //		theRef.setxPlayer(xPlayer);

@@ -5,15 +5,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /** This class consists of the players that make the moves in the tic-tac-toe game.
- * An object of this class contains the following information: a name, a Board object, a mark 
- * ('X' or 'O'), and a Player object. This class also provides a constructor to create a Player object, 
+ * An object of this class contains the following information: a name, a TicTacToe.Board object, a mark
+ * ('X' or 'O'), and a TicTacToe.Player object. This class also provides a constructor to create a TicTacToe.Player object,
  * instance methods for getting and setting Players, setting the  opponent and board, and
  * playing the game as explained in the given comments, below. */
 public class Player {
 	private String name;
 	private Board board;
-	private int row;
-	private int column;
 	private char mark;
 	private Player opponent;
 
@@ -21,7 +19,7 @@ public class Player {
 	private PrintWriter out;
 
 	
-	/** Constructor that creates a new Player from input arguments of name and character ('X' or 'O'). */
+	/** Constructor that creates a new TicTacToe.Player from input arguments of name and character ('X' or 'O'). */
 	public Player(String name, char mark, BufferedReader in, PrintWriter out) {
 		this.name = name;
 		this.mark = mark;
@@ -31,7 +29,7 @@ public class Player {
 
 
 	/** Method that is responsible for playing the game. As long as neither player has won the game
-	 * or the board is not full it calls the Player method makeMove() then displays the board. 
+	 * or the board is not full it calls the TicTacToe.Player method makeMove() then displays the board.
 	 * It checks if the X or the O player have won the game or if the board is full. 
 	 * If no one has won or the board is not full it passes the move to the
 	 * opponent and allows them to make a move. It then displays the board and checks the board again, 
@@ -60,10 +58,31 @@ public class Player {
 	}
 
 	/** This method asks the player to make a move by entering the row and column numbers, 
-	 * and puts an 'X' or 'O' mark on the board by calling addMark() in class Board. */
-	public void makeMove(int row, int column, char mark) {
+	 * and puts an 'X' or 'O' mark on the board by calling addMark() in class TicTacToe.Board. */
+	public void makeMove() {
+		int row = 0;
+		int column = 0;
+		out.println(name + ", what row should your next " + mark + " be placed in?");
+		System.out.println("test 5");
+		System.out.println("test 6");
+		try {
+			System.out.println("test 4");
+			row = Integer.parseInt(in.readLine());
+			out.println(row);
+			System.out.println("test 3");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("test 2");
+		out.println(name + ", what column should your next " + mark + " be placed in?");
+		try {
+			column = Integer.parseInt(in.readLine());
+			out.println(column);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("test 1");
 		board.addMark(row, column, mark);
-
 	}
 
 	/** Setter method to set the opponent of the current player. */
@@ -75,4 +94,6 @@ public class Player {
 	public void setBoard(Board theBoard) {
 		this.board = theBoard;
 	}
+
+	public String getName(){return this.name;}
 }
