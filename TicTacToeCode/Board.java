@@ -1,5 +1,3 @@
-package TicTacToeClient;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -89,6 +87,22 @@ public class Board implements Constants {
 		xSocketOut.println("UPDATEMARK"+" "+letter+" "+num);
 		oSocketOut.println("UPDATEMARK"+" "+letter+" "+num);
 	}
+	public void endGame(){
+	    xSocketOut.println("END");
+	    oSocketOut.println("END");
+    }
+    public void disableXButtons() {
+	    xSocketOut.println("DISABLE");
+    }
+    public void disableOButtons() {
+	    oSocketOut.println("DISABLE");
+    }
+    public void enableXButtons() {
+	    xSocketOut.println("ENABLE");
+    }
+    public void enableOButtons() {
+	    oSocketOut.println("ENABLE");
+    }
 	/** The method used to display the game board. It calls displayColumnHeaders(), addHyphens(), and 
 	 * addSpaces() to display the column labels, and the rectangular shape of the board, and prints 
 	 * the row labels also. */

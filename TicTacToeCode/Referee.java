@@ -1,5 +1,3 @@
-package TicTacToeClient;
-
 /** This class consists of the referee that sets the opponent for each TicTacToe.Player and starts the game by passing
  * the first move to the 'X'TicTacToe.Player. An object of this class contains the following information: a TicTacToe.Player
  * object for the 'X' player, a TicTacToe.Player object for the 'O' player, and a TicTacToe.Board object. This class also

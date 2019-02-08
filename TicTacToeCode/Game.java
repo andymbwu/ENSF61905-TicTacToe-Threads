@@ -1,5 +1,3 @@
-package TicTacToeClient;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -77,57 +75,57 @@ public class Game implements Constants, Runnable {
                     xPlayer = new Player(xInput, LETTER_X, xSocketIn, xSocketOut);
                     xPlayer.setOpponent(oPlayer);
                     xPlayer.setBoard(this.getTheBoard());
-                    theBoard.showToAllPlayers("ANNOUNCE" + xPlayer.getName() + " has entered the game");
+                    theBoard.showToAllPlayers("ANNOUNCE" + xPlayer.getName() + "(Player X) has entered the game");
                     System.out.println(xPlayer.getName() + " has entered the game");
                 } else if (xInput.startsWith("PLAYERMOVE")) {
                     int num_square = Integer.parseInt(xInput.replace("PLAYERMOVE", ""));
-                    System.out.println("playmove xinput" + num_square);
                     switch (num_square) {
                         case 1:
                             theBoard.addMark(0, 0, LETTER_X);
                             theBoard.updateMarks(LETTER_X, num_square);
-                            System.out.println("case 1 for X Player is called");
                             break;
                         case 2:
                             theBoard.addMark(0, 1, LETTER_X);
                             theBoard.updateMarks(LETTER_X, num_square);
-                            System.out.println("case 2 for X Player is called");
                             break;
                         case 3:
                             theBoard.addMark(0, 2, LETTER_X);
                             theBoard.updateMarks(LETTER_X, num_square);
-                            System.out.println("case 3 for X Player is called");
                             break;
                         case 4:
                             theBoard.addMark(1, 0, LETTER_X);
                             theBoard.updateMarks(LETTER_X, num_square);
-                            System.out.println("case 4 for X Player is called");
                             break;
                         case 5:
                             theBoard.addMark(1, 1, LETTER_X);
                             theBoard.updateMarks(LETTER_X, num_square);
-                            System.out.println("case 5 for X Player is called");
                             break;
                         case 6:
                             theBoard.addMark(1, 2, LETTER_X);
                             theBoard.updateMarks(LETTER_X, num_square);
-                            System.out.println("case 6 for X Player is called");
                             break;
                         case 7:
                             theBoard.addMark(2, 0, LETTER_X);
                             theBoard.updateMarks(LETTER_X, num_square);
-                            System.out.println("case 7 for X Player is called");
                             break;
                         case 8:
                             theBoard.addMark(2, 1, LETTER_X);
                             theBoard.updateMarks(LETTER_X, num_square);
-                            System.out.println("case 8 for X Player is called");
                             break;
                         case 9:
                             theBoard.addMark(2, 2, LETTER_X);
                             theBoard.updateMarks(LETTER_X, num_square);
-                            System.out.println("case 9 for X Player is called");
                             break;
+                    }
+                    if(theBoard.xWins()) {
+                        theBoard.showToAllPlayers(xPlayer.getName() + " is the Winner!");
+                        theBoard.endGame();
+                    } else if (theBoard.isFull()) {
+                        theBoard.showToAllPlayers("The game is a TIE!");
+                        theBoard.endGame();
+                    } else {
+                        theBoard.disableXButtons();
+                        theBoard.enableOButtons();
                     }
                 }
 
@@ -137,57 +135,60 @@ public class Game implements Constants, Runnable {
                         oPlayer = new Player(oInput, LETTER_O, xSocketIn, oSocketOut);
                         oPlayer.setOpponent(xPlayer);
                         oPlayer.setBoard(this.getTheBoard());
-                        theBoard.showToAllPlayers("ANNOUNCE" + oPlayer.getName() + " has entered the game");
+                        theBoard.showToAllPlayers("ANNOUNCE" + oPlayer.getName() + "(Player O) has entered the game");
                         System.out.println(oPlayer.getName() + " has entered the game");
+                        theBoard.disableOButtons();
                     } else if (oInput.startsWith("PLAYERMOVE")) {
                         int num_square = Integer.parseInt(oInput.replace("PLAYERMOVE", ""));
-                        System.out.println("playmove oinput" + num_square);
                         switch (num_square) {
                             case 1:
                                 theBoard.addMark(0, 0, LETTER_O);
                                 theBoard.updateMarks(LETTER_O, num_square);
-                                System.out.println("case 1 for O Player is called");
                                 break;
                             case 2:
                                 theBoard.addMark(0, 1, LETTER_O);
                                 theBoard.updateMarks(LETTER_O, num_square);
-                                System.out.println("case 2 for O Player is called");
                                 break;
                             case 3:
                                 theBoard.addMark(0, 2, LETTER_O);
                                 theBoard.updateMarks(LETTER_O, num_square);
-                                System.out.println("case 3 for O Player is called");
                                 break;
                             case 4:
                                 theBoard.addMark(1, 0, LETTER_O);
                                 theBoard.updateMarks(LETTER_O, num_square);
-                                System.out.println("case 4 for O Player is called");
                                 break;
                             case 5:
                                 theBoard.addMark(1, 1, LETTER_O);
                                 theBoard.updateMarks(LETTER_O, num_square);
-                                System.out.println("case 5 for O Player is called");
                                 break;
                             case 6:
                                 theBoard.addMark(1, 2, LETTER_O);
                                 theBoard.updateMarks(LETTER_O, num_square);
-                                System.out.println("case 6 for O Player is called");
                                 break;
                             case 7:
                                 theBoard.addMark(2, 0, LETTER_O);
                                 theBoard.updateMarks(LETTER_O, num_square);
-                                System.out.println("case 7 for O Player is called");
                                 break;
                             case 8:
                                 theBoard.addMark(2, 1, LETTER_O);
                                 theBoard.updateMarks(LETTER_O, num_square);
-                                System.out.println("case 8 for O Player is called");
                                 break;
                             case 9:
                                 theBoard.addMark(2, 2, LETTER_O);
                                 theBoard.updateMarks(LETTER_O, num_square);
-                                System.out.println("case 9 for O Player is called");
                                 break;
+                        }
+                        if(theBoard.oWins()) {
+                            theBoard.showToAllPlayers(oPlayer.getName() + " is the Winner!");
+                            theBoard.endGame();
+                        }
+                        else if (theBoard.isFull()) {
+                            theBoard.showToAllPlayers("The game is a TIE!");
+                            theBoard.endGame();
+                        }
+                        else {
+                            theBoard.disableOButtons();
+                            theBoard.enableXButtons();
                         }
                     }
                 }

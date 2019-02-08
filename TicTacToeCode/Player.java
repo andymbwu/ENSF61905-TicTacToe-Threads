@@ -1,5 +1,3 @@
-package TicTacToeClient;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -63,17 +61,12 @@ public class Player {
 		int row = 0;
 		int column = 0;
 		out.println(name + ", what row should your next " + mark + " be placed in?");
-		System.out.println("test 5");
-		System.out.println("test 6");
 		try {
-			System.out.println("test 4");
 			row = Integer.parseInt(in.readLine());
 			out.println(row);
-			System.out.println("test 3");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("test 2");
 		out.println(name + ", what column should your next " + mark + " be placed in?");
 		try {
 			column = Integer.parseInt(in.readLine());
@@ -81,7 +74,6 @@ public class Player {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("test 1");
 		board.addMark(row, column, mark);
 	}
 
