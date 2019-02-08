@@ -1,5 +1,3 @@
-package TicTacToeClient;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -20,10 +18,7 @@ public class MainGUI extends JFrame implements Constants {
 
     private JPanel contentPane;
     private JTextField enterName;
-    //	private JTextField enterOName;
     private JTextArea statusField;
-    //	private JRadioButton selectX;
-//	private JRadioButton selectO;
     private JButton btnTopLeft;
     private JButton btnTopMid;
     private JButton btnTopRight;
@@ -36,30 +31,10 @@ public class MainGUI extends JFrame implements Constants {
 
     private JButton btnStartGame;
     private JButton btnQuitGame;
-    //	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
-    private String nameXPlayer;
-    private String nameOPlayer;
     private JButton btnRestartGame;
 
     private BufferedReader in;
     private PrintWriter out;
-    private Socket aSocket;
-
-    /**
-     * Launch the application.
-     */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					TicTacToe.MainGUI frame = new TicTacToe.MainGUI();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//		}
 
     /**
      * Create the frame.
@@ -89,7 +64,7 @@ public class MainGUI extends JFrame implements Constants {
         contentPane.add(scrollPane);
 
         statusField = new JTextArea();
-        statusField.setText("Please enter a your name and click START");
+        statusField.setText("Please enter a your name and click START, Player X Starts!");
         statusField.setFont(new Font("Monospaced", Font.PLAIN, 20));
         statusField.setLineWrap(true);
         scrollPane.setViewportView(statusField);
@@ -230,9 +205,7 @@ public class MainGUI extends JFrame implements Constants {
                 if (btnBotRight.getText().isEmpty() == false) {
                     statusField.append("\nThat spot is filled. Choose another spot!");
                 } else {
-//                    	btnTopLeft.setText("X");
                     out.println("PLAYERMOVE" + "9");
-//						board.addMark(0, 0, LETTER_X);
                 }
             }
         });
@@ -251,34 +224,6 @@ public class MainGUI extends JFrame implements Constants {
              */
             public void actionPerformed(ActionEvent evt) {
                 out.println("PLAYERNAME" + enterName.getText());
-
-//					TicTacToe.Referee theRef;
-//					TicTacToe.Player xPlayer, oPlayer;
-//					TicTacToe.Game theGame = new TicTacToe.Game();
-//
-//					nameXPlayer = enterXName.getText();
-//					nameOPlayer = enterOName.getText();
-//					if (enterXName.getText().equals("")|| enterOName.getText().equals("")) {
-//						statusField.append("\nPlease enter a name for the players and try again");
-//						return;
-//					}
-//					else if (nameXPlayer != null & nameOPlayer != null)
-//					{
-//						statusField.append("\n"+ nameXPlayer + " is TicTacToe.Player X");
-//						statusField.append("\n"+nameOPlayer + " is TicTacToe.Player O");
-//
-//						xPlayer = new TicTacToe.Player(nameXPlayer, LETTER_X);
-//						xPlayer.setBoard(theGame.getTheBoard());
-//
-//						oPlayer = new TicTacToe.Player(nameOPlayer, LETTER_O);
-//						oPlayer.setBoard(theGame.getTheBoard());
-//
-//						theRef = new TicTacToe.Referee();
-//						theRef.setBoard(theGame.getTheBoard());
-//						theRef.setoPlayer(oPlayer);
-//						theRef.setxPlayer(xPlayer);
-//					}
-
             }
         });
 
@@ -292,16 +237,6 @@ public class MainGUI extends JFrame implements Constants {
 //				}
 //			});
 //
-		btnRestartGame = new JButton("Restart Game");
-		btnRestartGame.setFont(new Font("Tahoma", Font.PLAIN, 36));
-		btnRestartGame.setBounds(948, 643, 269, 53);
-		contentPane.add(btnRestartGame);
-			btnRestartGame.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-                    out.println("RESET");
-				}
-			});
-
     }
 
     /**
@@ -364,14 +299,24 @@ public class MainGUI extends JFrame implements Constants {
         btnBotMid.setEnabled(false);
         btnBotRight.setEnabled(false);
     }
-
+    void enableButtons() {
+        btnTopLeft.setEnabled(true);
+        btnTopMid.setEnabled(true);
+        btnTopRight.setEnabled(true);
+        btnMidLeft.setEnabled(true);
+        btnMidMid.setEnabled(true);
+        btnMidRight.setEnabled(true);
+        btnBotLeft.setEnabled(true);
+        btnBotMid.setEnabled(true);
+        btnBotRight.setEnabled(true);
+    }
 
     /**
      * Clears game board and internal console board array
      * Enables all buttons
      * Resets game with same players
      */
-	void restartGame() {
+//	void restartGame() {
 //		btnTopLeft.setEnabled(true);
 //		btnTopMid.setEnabled(true);
 //		btnTopRight.setEnabled(true);
@@ -382,18 +327,18 @@ public class MainGUI extends JFrame implements Constants {
 //		btnBotMid.setEnabled(true);
 //		btnBotRight.setEnabled(true);
 
-		btnTopLeft.setText("");
-		btnTopMid.setText("");
-		btnTopRight.setText("");
-		btnMidLeft.setText("");
-		btnMidMid.setText("");
-		btnMidRight.setText("");
-		btnBotLeft.setText("");
-		btnBotMid.setText("");
-		btnBotRight.setText("");
-
-		statusField.setText("Same players, NEW GAME!");
-	}
+//		btnTopLeft.setText("");
+//		btnTopMid.setText("");
+//		btnTopRight.setText("");
+//		btnMidLeft.setText("");
+//		btnMidMid.setText("");
+//		btnMidRight.setText("");
+//		btnBotLeft.setText("");
+//		btnBotMid.setText("");
+//		btnBotRight.setText("");
+//
+//		statusField.setText("Same players, NEW GAME!");
+//	}
 
 }
 

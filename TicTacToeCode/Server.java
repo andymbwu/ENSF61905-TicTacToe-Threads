@@ -1,5 +1,3 @@
-package TicTacToeClient;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,7 +26,7 @@ public class Server {
 	public Server() { // throws IOException {
 
 		try {
-			serverSocket = new ServerSocket(9898);
+			serverSocket = new ServerSocket(9899);
 			this.pool = Executors.newFixedThreadPool(5);
 			
 		} catch (IOException e) {
