@@ -64,7 +64,7 @@ public class MainGUI extends JFrame implements Constants {
         contentPane.add(scrollPane);
 
         statusField = new JTextArea();
-        statusField.setText("Please enter a your name and click START, Player X Starts!");
+        statusField.setText("Please enter your name and click START, Player X Starts!");
         statusField.setFont(new Font("Monospaced", Font.PLAIN, 20));
         statusField.setLineWrap(true);
         scrollPane.setViewportView(statusField);
