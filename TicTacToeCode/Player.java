@@ -87,5 +87,9 @@ public class Player {
 		this.board = theBoard;
 	}
 
+	/**
+	 * Getter method for the name of the player
+	 * @return: name of player
+	 */
 	public String getName(){return this.name;}
 }

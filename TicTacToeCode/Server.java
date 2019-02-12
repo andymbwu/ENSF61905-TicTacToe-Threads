@@ -7,7 +7,9 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
+/**
+ * Class that initializes the server that handles communication with the client
+ */
 public class Server {
 	Socket xSocket;
 	Socket oSocket;
@@ -36,6 +38,9 @@ public class Server {
 		System.out.println("TicTacToe.Server is running");
 	}
 
+	/**
+	 * Method that accepts the player client sockets and initializes new printwriters and bufferedreaders
+	 */
 	public void runServer() {
 		try {
 
@@ -72,6 +77,11 @@ public class Server {
 		}
 	}
 
+	/**
+	 * Main Method that starts the server
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 		Server myServer = new Server();
 		myServer.runServer();

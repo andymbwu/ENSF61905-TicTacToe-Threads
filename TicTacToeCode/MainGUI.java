@@ -248,38 +248,83 @@ public class MainGUI extends JFrame implements Constants {
         statusField.append("\n" + text);
     }
 
+    /**
+     * Setter for top left button
+     *
+     * @param letter
+     */
     void setBtnTopLeft(String letter) {
         btnTopLeft.setText(letter);
     }
 
+    /**
+     * Setter for top mid button
+     *
+     * @param letter
+     */
     void setBtnTopMid(String letter) {
         btnTopMid.setText(letter);
     }
 
+    /**
+     * Setter for top right button
+     *
+     * @param letter
+     */
     void setBtnTopRight(String letter) {
         btnTopRight.setText(letter);
     }
 
+    /**
+     * setter for mid left button
+     *
+     * @param letter
+     */
     void setBtnMidLeft(String letter) {
         btnMidLeft.setText(letter);
     }
 
+    /**
+     * setter for middle button
+     *
+     * @param letter
+     */
     void setBtnMidMid(String letter) {
         btnMidMid.setText(letter);
     }
 
+    /**
+     * Setter for middle right button
+     *
+     * @param letter
+     */
     void setBtnMidRight(String letter) {
         btnMidRight.setText(letter);
     }
 
+    /**
+     * setter for bottom left button
+     *
+     * @param letter
+     */
     void setBtnBotLeft(String letter) {
         btnBotLeft.setText(letter);
     }
 
+    /**
+     * setter for bottom middle button
+     *
+     * @param letter
+     */
     void setBtnBotMid(String letter) {
         btnBotMid.setText(letter);
     }
 
+    /**
+     * Setter for bottom right button
+     *
+     * @param letter
+     */
     void setBtnBotRight(String letter) {
         btnBotRight.setText(letter);
     }
@@ -299,6 +344,7 @@ public class MainGUI extends JFrame implements Constants {
         btnBotMid.setEnabled(false);
         btnBotRight.setEnabled(false);
     }
+
     void enableButtons() {
         btnTopLeft.setEnabled(true);
         btnTopMid.setEnabled(true);
