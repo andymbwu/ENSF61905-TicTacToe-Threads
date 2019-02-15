@@ -116,8 +116,8 @@ public class TicTacToeClient {
          * @throws IOException
          */
         public static void main (String[]args) throws IOException {
-            TicTacToeClient aClient = new TicTacToeClient("localhost", 9899);
-            //TicTacToeClient aClient = new TicTacToeClient("xx.xx.xx.xxx", 9899);
+            //TicTacToeClient aClient = new TicTacToeClient("localhost", 9899);
+            TicTacToeClient aClient = new TicTacToeClient("10.13.101.151", 9899);
             aClient.frame = new MainGUI(aClient.aSocket);
             aClient.frame.setVisible(true);
             try {
